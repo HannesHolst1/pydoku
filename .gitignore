@@ -1,0 +1,7 @@
+launch.json
+settings.json
+.vscode/
+__pycache__/
+debug/
+pydoku_env/
+test.py
