@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-from datetime import datetime
 
 def prepare_image(image):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

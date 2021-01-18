@@ -25,22 +25,26 @@ def detect_grid_elements(working_image, contours):
        squares_that_fit = sudoku_area // candidate
        if (squares_that_fit == 9):
            medium_squares.append(contour_index)
-           medium_squares_properties[contour_index] = [candidate, 0]
+           medium_squares_properties[contour_index] = [candidate, 0]         
 
-    # now, knowing all the medium-sized squares, it is possible to calculate if the area of a square fits roughly 9-10 times into the medium-sized square.
+    # now, knowing all the medium-sized squares, it is possible to calculate if the area of a small square fits roughly 8-11 times into the medium-sized square.
     # medium_squares_properties[i][0] = holds the area of the medium-sized square
     # medium_squares_properties[i][1] = holds the quantity of small-sized squares that belong to the medium-sized square
     small_squares = []
+    ignore_coordinates = []
     for contour_index, c in enumerate(contours):
         x, y, w, h = cv2.boundingRect(c)
-        candidate = w * h
-        for medium_square in medium_squares:
-            squares_that_fit = medium_squares_properties[medium_square][0] // candidate
-            if (squares_that_fit >= 8) and (squares_that_fit <= 11):
-                if medium_squares_properties[medium_square][1] < 9:
-                    small_squares.append(contour_index)
-                    medium_squares_properties[medium_square][1] += 1
-                    break
+        ignore_contour = [(x >= ignore_coordinate[0] and x <= ignore_coordinate[2]) and (y >= ignore_coordinate[1] and y <= ignore_coordinate[3]) for ignore_coordinate in ignore_coordinates]
+        if not any(ignore_contour):
+            candidate = w * h
+            for medium_square in medium_squares:
+                squares_that_fit = medium_squares_properties[medium_square][0] // candidate
+                if (squares_that_fit >= 8) and (squares_that_fit <= 11):
+                    if medium_squares_properties[medium_square][1] < 9:
+                        small_squares.append(contour_index)
+                        medium_squares_properties[medium_square][1] += 1
+                        ignore_coordinates.append([x, y, x+w, y+h])
+                        break
 
     return medium_squares, small_squares
 
@@ -51,16 +55,15 @@ def get_squares_with_canny(image):
 
     contours, hierarchy  = im.findContours(image)
     contours.sort(key=lambda x:get_contour_precedence(x))
-
+ 
     medium_squares, small_squares = detect_grid_elements(image, contours)
-
     sudoku_recognized = (len(medium_squares) == 9) and (len(small_squares) == 81)
 
     return sudoku_recognized, small_squares, contours
 
 def get_squares_with_xlines(img):
     # Defining a kernel length
-    kernel_length = np.array(img).shape[1]//50
+    kernel_length = np.array(img).shape[1]//60
 
     # A verticle kernel of (1 X kernel_length), which will detect all the verticle lines from the image.
     verticle_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, kernel_length))
@@ -81,7 +84,7 @@ def get_squares_with_xlines(img):
     beta = 1.0 - alpha
     # This function helps to add two image with specific weight parameter to get a third image as summation of two image.
     img_final_bin = cv2.addWeighted(verticle_lines_img, alpha, horizontal_lines_img, beta, 0.0)
-    img_final_bin = cv2.erode(~img_final_bin, cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3)), iterations=2)
+    img_final_bin = cv2.erode(~img_final_bin, kernel, iterations=2)
     (thresh, img_final_bin) = cv2.threshold(img_final_bin, 128,255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
     contours, hierarchy  = im.findContours(img_final_bin)
@@ -93,13 +96,10 @@ def get_squares_with_xlines(img):
 
     small_squares = []
     for contour_index, c in enumerate(contours):
-       x, y, w, h = cv2.boundingRect(c)
-       peri = cv2.arcLength(c, True)
-       approx = cv2.approxPolyDP(c, 0.015 * peri, True)
-       cv2.drawContours(img, [approx], -1, (192,192,192), 1)       
+       x, y, w, h = cv2.boundingRect(c)     
        candidate = w * h
        squares_that_fit = sudoku_area // candidate
-       if (squares_that_fit >= 75) and (squares_that_fit <= 95):
+       if (squares_that_fit >= 75) and (squares_that_fit <= 105):
            if len(small_squares) < 81:
                 small_squares.append(contour_index)
 
@@ -107,7 +107,7 @@ def get_squares_with_xlines(img):
 
     return sudoku_recognized, small_squares, contours
 
-def extract_grid_elements(image):
+def extract_grid_elements(image, name='output'):
 
     img = im.prepare_image(image)
 
@@ -127,12 +127,7 @@ def extract_grid_elements(image):
 
     if not grid_identified:
         print('another approach necessary, squares: {}'.format(len(squares)))
-        return
-
-    # ### debug help
-    # for i, c in enumerate(contours):
-    #     origin = cv2.boundingRect(c)
-    #     print("x = {}, y = {}: w = {}, h = {}, hierarchy[i] = {}, sort key = {}".format(origin[0], origin[1], origin[2], origin[3],hierarchy[0][i], i))
+        #return
 
     font = cv2.FONT_HERSHEY_SIMPLEX 
     org = (50, 50) 
@@ -156,7 +151,7 @@ def extract_grid_elements(image):
             cv2.drawContours(image, [approx], -1, (0,255,0), 1)
 
             # Using cv2.putText() method 
-            image = cv2.putText(image, str(idy)+'x'+str(idx), (x+50, y+50), font, fontScale, color, thickness, cv2.LINE_AA) 
+            image = cv2.putText(image, str(i)+': '+str(idy)+'x'+str(idx), (x+50, y+50), font, fontScale, color, thickness, cv2.LINE_AA) 
 
             new_img = img[y:y+h, x:x+w] #str(idx)+'x'+str(idy)
             #cv2.imwrite('./debug/output/'+ str(i)+ '.png', new_img)
@@ -167,5 +162,5 @@ def extract_grid_elements(image):
     if image is None:
         print('Error in processing.')
     else:
-        cv2.imwrite('./debug/output/x.png', image)
+        cv2.imwrite('./debug/output/'+name+'.png', image)
         
