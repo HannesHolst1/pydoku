@@ -42,8 +42,16 @@ def four_point_transform(image, pts):
 	return warped
 
 def extract_major_grid(image):
-    img = im.prepare_image(image)
+    #img = im.prepare_image(image)
 
+    img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    img = cv2.GaussianBlur(img, (5,5), 0)
+
+    (thresh, img) = cv2.threshold(img, 128, 255,cv2.THRESH_BINARY|cv2.THRESH_OTSU)
+
+    img = 255-img
+ 
     img_edged = im.identify_edges(img)
 
     cnts = im.findContours(img_edged)
@@ -58,6 +66,8 @@ def extract_major_grid(image):
         peri = cv2.arcLength(c, True)
         approx = cv2.approxPolyDP(c, 0.06 * peri, True)
 
-        if len(approx) == 4: 
+        if len(approx) == 4:
+            #print(cv2.boundingRect(c))
+            #cv2.drawContours(image, [approx], -1, (0,255,0), 3)
             cropped = four_point_transform(image, approx.reshape(4, 2))
             return cropped

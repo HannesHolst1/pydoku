@@ -14,7 +14,7 @@ def prepare_image(image):
     return image
 
 def identify_edges(image):
-    return cv2.Canny(image, 75, 200)
+    return cv2.Canny(image, 75, 100)
 
 def findContours(image):
     return cv2.findContours(image.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
