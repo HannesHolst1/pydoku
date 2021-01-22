@@ -109,66 +109,66 @@ def solve(grid):
 
     return new_grid
 
-easy_grid = [[0,0,0,2,0,0,7,5,3],
-             [6,0,0,8,0,5,0,4,0],
-             [0,0,0,1,0,0,9,0,0],
-             [8,9,7,0,0,0,0,0,5],
-             [0,5,0,9,1,3,0,8,0],
-             [1,0,0,0,0,0,6,2,9],
-             [0,0,2,0,0,9,0,0,0],
-             [0,6,0,4,0,7,0,0,2],
-             [5,7,4,0,0,1,0,0,0]]
+# easy_grid = [[0,0,0,2,0,0,7,5,3],
+#              [6,0,0,8,0,5,0,4,0],
+#              [0,0,0,1,0,0,9,0,0],
+#              [8,9,7,0,0,0,0,0,5],
+#              [0,5,0,9,1,3,0,8,0],
+#              [1,0,0,0,0,0,6,2,9],
+#              [0,0,2,0,0,9,0,0,0],
+#              [0,6,0,4,0,7,0,0,2],
+#              [5,7,4,0,0,1,0,0,0]]
 
-medium_grid = [[1,0,0,0,3,8,0,0,6],
-               [0,3,0,7,0,9,0,0,0],
-               [0,8,6,0,0,0,0,3,7],
-               [0,0,0,0,7,0,3,0,0],
-               [0,4,0,0,8,0,0,2,0],
-               [0,0,8,0,9,0,0,0,0],
-               [6,9,0,0,0,0,7,4,0],
-               [0,0,0,6,0,2,0,9,0],
-               [2,0,0,9,4,0,0,0,1]]
+# medium_grid = [[1,0,0,0,3,8,0,0,6],
+#                [0,3,0,7,0,9,0,0,0],
+#                [0,8,6,0,0,0,0,3,7],
+#                [0,0,0,0,7,0,3,0,0],
+#                [0,4,0,0,8,0,0,2,0],
+#                [0,0,8,0,9,0,0,0,0],
+#                [6,9,0,0,0,0,7,4,0],
+#                [0,0,0,6,0,2,0,9,0],
+#                [2,0,0,9,4,0,0,0,1]]
 
-difficult_grid =    [[9,0,0,0,0,1,0,0,4],
-                     [7,4,3,0,0,0,0,0,0],
-                     [0,6,0,2,9,0,0,0,0],
-                     [0,0,0,0,0,9,0,8,0],
-                     [0,0,8,0,7,0,5,0,0],
-                     [0,3,0,5,0,0,0,0,0],
-                     [0,0,0,0,6,2,0,4,0],
-                     [0,0,0,0,0,0,8,7,6],
-                     [5,0,0,4,0,0,0,0,9]]
+# difficult_grid =    [[9,0,0,0,0,1,0,0,4],
+#                      [7,4,3,0,0,0,0,0,0],
+#                      [0,6,0,2,9,0,0,0,0],
+#                      [0,0,0,0,0,9,0,8,0],
+#                      [0,0,8,0,7,0,5,0,0],
+#                      [0,3,0,5,0,0,0,0,0],
+#                      [0,0,0,0,6,2,0,4,0],
+#                      [0,0,0,0,0,0,8,7,6],
+#                      [5,0,0,4,0,0,0,0,9]]
 
-most_hardest_grid = [[8,0,0,0,0,0,0,0,0],
-                     [0,0,3,6,0,0,0,0,0],
-                     [0,7,0,0,9,0,2,0,0],
-                     [0,5,0,0,0,7,0,0,0],
-                     [0,0,0,0,4,5,7,0,0],
-                     [0,0,0,1,0,0,0,3,0],
-                     [0,0,1,0,0,0,0,6,8],
-                     [0,0,8,5,0,0,0,1,0],
-                     [0,9,0,0,0,0,4,0,0]]
+# most_hardest_grid = [[8,0,0,0,0,0,0,0,0],
+#                      [0,0,3,6,0,0,0,0,0],
+#                      [0,7,0,0,9,0,2,0,0],
+#                      [0,5,0,0,0,7,0,0,0],
+#                      [0,0,0,0,4,5,7,0,0],
+#                      [0,0,0,1,0,0,0,3,0],
+#                      [0,0,1,0,0,0,0,6,8],
+#                      [0,0,8,5,0,0,0,1,0],
+#                      [0,9,0,0,0,0,4,0,0]]
 
 
-grid_solved = solve(easy_grid)
-print("Easy Sudoku, No of steps {}".format(no_of_runs))
-for line in grid_solved:
-    print(line)
+# grid_solved = solve(easy_grid)
+# print("Easy Sudoku, No of steps {}".format(no_of_runs))
+# for line in grid_solved:
+#     print(line)
 
-no_of_runs = 0
-grid_solved = solve(medium_grid)
-print("Medium Sudoku, No of steps {}".format(no_of_runs))
-for line in grid_solved:
-    print(line)
+# no_of_runs = 0
+# grid_solved = solve(medium_grid)
+# print("Medium Sudoku, No of steps {}".format(no_of_runs))
+# for line in grid_solved:
+#     print(line)
 
-no_of_runs = 0
-grid_solved = solve(difficult_grid)
-print("Difficult Sudoku, No of steps {}".format(no_of_runs))
-for line in grid_solved:
-    print(line)
+# no_of_runs = 0
+# grid_solved = solve(difficult_grid)
+# print("Difficult Sudoku, No of steps {}".format(no_of_runs))
+# for line in grid_solved:
+#     print(line)
 
-no_of_runs = 0
-grid_solved = solve(most_hardest_grid)
-print("World's hardest Sudoku, No of steps {}".format(no_of_runs))
-for line in grid_solved:
-    print(line)
+# no_of_runs = 0
+# grid_solved = solve(most_hardest_grid)
+# print("World's hardest Sudoku, No of steps {}".format(no_of_runs))
+# for line in grid_solved:
+#     print(line)
