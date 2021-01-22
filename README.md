@@ -9,6 +9,7 @@ This repository includes the following:
 - Recursive Sudoku-solver
 
 The number prediction is based on kNN-model that was trained with the Char74K-dataset: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/
+
 Download the dataset and extract into `./datasets/Char74K/`
 
 Then, run `create_Char74K_model.py`
