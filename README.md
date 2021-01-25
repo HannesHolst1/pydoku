@@ -5,10 +5,10 @@ This repository includes the following:
 - Image processing
 - Sudoku grid recognition
 - Grid extraction
-- Number prediction using Convolutional Neural Network-model (with 99% confidence) 
+- Number prediction using Convolutional Neural Network-model (with 99% accurancy) 
 - Recursive Sudoku-solver
 
-The number prediction is based on a CNN-model that was trained with the Char74K-dataset: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/
+The number prediction is based on a CNN-model that was trained with the Chars74K-dataset: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/
 
 Download the dataset and extract into `./datasets/Char74K/`
 
