@@ -42,3 +42,9 @@ test15 -- Could not extract Sudoku grid from image.
 test16 -- test16-Sudoku succesful solved: True
 test17 -- Could not extract Sudoku grid from image.
 ```
+
+## Original file
+![original sudoku](https://raw.githubusercontent.com/HannesHolst1/pydoku/master/test_files/test1.jpg)
+
+## Output (solved Sudoku)
+![solved sudoku](https://github.com/HannesHolst1/pydoku/blob/master/output/test1_output.png?raw=true)
