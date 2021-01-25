@@ -51,6 +51,9 @@ def solve(name, filename, model, result):
     print('---')
     result[name] = '{}-Sudoku succesful solved: {}'.format(name, imported_sudoku != grid_solved)
     print(result[name])
+    if imported_sudoku != grid_solved:
+        output = im.output_sudoku_solution(major_grid, imported_sudoku, grid_solved)
+        cv2.imwrite('./output/'+name+'_output.png', output)
     print('===')
     
 
