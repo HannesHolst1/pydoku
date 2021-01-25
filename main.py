@@ -1,11 +1,11 @@
 import major_grid as mg
 import grid_elements as ge
 import cv2
-import predict
+import predict_CNN
 import image_manipulation as im
 import solve_puzzle as sp
-import joblib
 import sys
+from keras.models import load_model
 
 def solve(name, filename, model, result):
     print("testname: {}".format(name))
@@ -32,7 +32,7 @@ def solve(name, filename, model, result):
             sys.stdout.flush()
 
             prep_image = im.prepare_image(image_square)
-            prediction = predict.predict_number(prep_image, model)
+            prediction = predict_CNN.predict_number(prep_image, model)
             predicted_row.append(int(prediction[0]))
 
         imported_sudoku.append(predicted_row)
@@ -54,27 +54,28 @@ def solve(name, filename, model, result):
     print('===')
     
 
-knn = joblib.load('./models/Char74K_knn_model.pkl')
+#knn = joblib.load('./models/Char74K_knn_model.pkl')
+model = load_model('./models/Char74K_CNN_model.h5')
 
 results = {}
 
-solve('test1', './test_files/test1.jpg', knn, results)
-solve('test2', './test_files/test2.jpg', knn, results)
-solve('test3', './test_files/test3.jpg', knn, results)
-solve('test4', './test_files/test4.jpg', knn, results)
-solve('test5', './test_files/test5.jpg', knn, results)
-solve('test6', './test_files/test6.jpg', knn, results)
-solve('test7', './test_files/test7.jpg', knn, results)
-solve('test8', './test_files/test8.jpg', knn, results)
-solve('test9', './test_files/test9.jpg', knn, results)
-solve('test10', './test_files/test10.jpg', knn, results)
-solve('test11', './test_files/test11.jpg', knn, results)
-solve('test12', './test_files/test12.jpg', knn, results)
-solve('test13', './test_files/test13.jpg', knn, results)
-solve('test14', './test_files/test14.jpg', knn, results)
-solve('test15', './test_files/test15.jpg', knn, results)
-solve('test16', './test_files/test16.jpg', knn, results)
-solve('test17', './test_files/test17.png', knn, results)
+solve('test1', './test_files/test1.jpg', model, results)
+solve('test2', './test_files/test2.jpg', model, results)
+solve('test3', './test_files/test3.jpg', model, results)
+solve('test4', './test_files/test4.jpg', model, results)
+solve('test5', './test_files/test5.jpg', model, results)
+solve('test6', './test_files/test6.jpg', model, results)
+solve('test7', './test_files/test7.jpg', model, results)
+solve('test8', './test_files/test8.jpg', model, results)
+solve('test9', './test_files/test9.jpg', model, results)
+solve('test10', './test_files/test10.jpg', model, results)
+solve('test11', './test_files/test11.jpg', model, results)
+solve('test12', './test_files/test12.jpg', model, results)
+solve('test13', './test_files/test13.jpg', model, results)
+solve('test14', './test_files/test14.jpg', model, results)
+solve('test15', './test_files/test15.jpg', model, results)
+solve('test16', './test_files/test16.jpg', model, results)
+solve('test17', './test_files/test17.png', model, results)
 
 for key, item in results.items():
     print('{} -- {}'.format(key, item))

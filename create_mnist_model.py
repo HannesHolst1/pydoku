@@ -5,7 +5,7 @@ import joblib
 # import cv2
 # import random
 
-mndata = MNIST('./MNIST')
+mndata = MNIST('./datasets/MNIST')
 
 training_images, training_labels = mndata.load_training()
 test_images, test_labels = mndata.load_testing()
