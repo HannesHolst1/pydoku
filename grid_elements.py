@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import image_manipulation as im
-import imutils
 
 def get_contour_precedence(contour):
     origin = cv2.boundingRect(contour)
@@ -129,46 +128,28 @@ def extract_grid_elements(image, name='output'):
 
     if not grid_identified:
         print('another approach necessary, squares: {}'.format(len(squares)))
-        return
-
-    # font = cv2.FONT_HERSHEY_SIMPLEX 
-    # org = (50, 50) 
-    # fontScale = 1
-    # color = (255, 0, 0) 
-    # thickness = 2
-    # ##### debug help
-
-    #print("medium-sized squares: {}, small-sized squares: {}".format(len(medium_squares), len(small_squares)))
+        return None, None
 
     idy = 0
     idx = 1
     numbers = []
     grid_columns = []
+    coordiantes_line = []
+    coordinates = []
     for i, c in enumerate(contours):
         if i in squares:
             x, y, w, h = cv2.boundingRect(c)
             idy += 1
-            #peri = cv2.arcLength(c, True)
-            #approx = cv2.approxPolyDP(c, 0.015 * peri, True)
-            #cv2.drawContours(image, [approx], -1, (0,255,0), 1)
-
-            # Using cv2.putText() method 
-            #image = cv2.putText(image, str(i)+': '+str(idy)+'x'+str(idx), (x+50, y+50), font, fontScale, color, thickness, cv2.LINE_AA) 
-
+            coordiantes_line.append([x, y, w, h])
             new_img = image[y:y+h, x:x+w]
             grid_columns.append(new_img)
-            #numbers[idx].append(new_img)
-            #cv2.imwrite('./debug/output/'+str(idy)+'x'+str(idx)+ '.png', new_img)
             if idy == 9:
                 idy = 0
                 numbers.insert(idx, grid_columns)
+                coordinates.insert(idx, coordiantes_line)
                 idx += 1
                 grid_columns = []
+                coordiantes_line = []
 
-    # if image is None:
-    #     print('Error in processing.')
-    # else:
-    #     cv2.imwrite('./debug/output/'+name+'.png', image)
-
-    return numbers
+    return numbers, coordinates
         

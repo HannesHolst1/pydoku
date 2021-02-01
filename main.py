@@ -11,7 +11,7 @@ def solve(name, filename, model, result):
     print("testname: {}".format(name))
     image = cv2.imread(filename)
     major_grid = mg.extract_major_grid(image)
-    squares_images = ge.extract_grid_elements(major_grid, name)
+    squares_images, square_coordinates = ge.extract_grid_elements(major_grid, name)
 
     if squares_images is None:
         result[name] = 'Could not extract Sudoku grid from image.'
@@ -52,7 +52,7 @@ def solve(name, filename, model, result):
     result[name] = '{}-Sudoku succesful solved: {}'.format(name, imported_sudoku != grid_solved)
     print(result[name])
     if imported_sudoku != grid_solved:
-        output = im.output_sudoku_solution(major_grid, imported_sudoku, grid_solved)
+        output = im.output_sudoku_solution(major_grid, square_coordinates, imported_sudoku, grid_solved)
         cv2.imwrite('./output/'+name+'_output.png', output)
     print('===')
     
