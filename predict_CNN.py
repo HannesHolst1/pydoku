@@ -2,7 +2,6 @@ from typing import get_origin
 import numpy as np
 import cv2
 import image_manipulation as im
-from skimage.feature import hog
 
 def is_empty_square(image):
     edges = cv2.Canny(image, 75, 100)

@@ -1,5 +1,4 @@
 # import the necessary packages
-from skimage import exposure
 import numpy as np
 import imutils
 import cv2
