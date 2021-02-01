@@ -1,4 +1,4 @@
-# pydoku
+# pydoku - ondevice version
 Solves a Sudoku in Python using OpenCV & Deep Learning
 
 This repository includes the following:
@@ -8,18 +8,11 @@ This repository includes the following:
 - Number prediction using Convolutional Neural Network-model (with 99% accurancy) 
 - Recursive Sudoku-solver
 
-The number prediction is based on a CNN-model that was trained with the Chars74K-dataset: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/
+All source files are included.
+Simply clone repository, build environment with `pip install -r requirements.txt` and run `main.py`
 
-Download the dataset and extract into `./datasets/Char74K/`
-
-Then, run `create_Char74K_CNN_model.py`
-(It took appr. 30 minutes to complete on my laptop.)
-
-This will create a dump of the trained model: `./models/Char74K_CNN_model.h5`
-
-The CNN has the following benefits:
-- The file in which the model is saved is much smaller (the kNN model-file was 650MB, the CNN model-file is 42MB)
-- The prediction runs faster compared to kNN 
+ToDo
+- [ ] reduce file size of repo (it is due to the image files in './test_files' and './output') 
 
 Current test output ----------------------->>>>
 
