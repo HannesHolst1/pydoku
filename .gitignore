@@ -6,5 +6,4 @@ debug/
 pydoku_env/
 test.py
 datasets/
-models/
 pydoku_env3.8/

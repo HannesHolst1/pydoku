@@ -5,7 +5,7 @@ import predict_CNN
 import image_manipulation as im
 import solve_puzzle as sp
 import sys
-from keras.models import load_model
+import tflite_runtime.interpreter as tflite
 
 def solve(name, filename, model, result):
     print("testname: {}".format(name))
@@ -57,8 +57,9 @@ def solve(name, filename, model, result):
     print('===')
     
 
-#knn = joblib.load('./models/Char74K_knn_model.pkl')
-model = load_model('./models/Char74K_CNN_model.h5')
+model = tflite.Interpreter(model_path='./models/Chars74K_CNN_model.tflite')
+model.allocate_tensors()
+
 
 results = {}
 
