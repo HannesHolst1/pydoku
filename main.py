@@ -61,7 +61,10 @@ def init_tflite():
     model = tflite.Interpreter(model_path='./models/Chars74K_CNN_model.tflite')
     model.allocate_tensors()
 
-# init_tflite()
+init_tflite()
+img = cv2.imread('./test_files/test1.jpg')
+solve('test1', img)
+
 # results = {}
 
 # solve('test1', './test_files/test1.jpg', model, results)
