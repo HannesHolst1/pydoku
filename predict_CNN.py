@@ -1,4 +1,3 @@
-from typing import get_origin
 import numpy as np
 import cv2
 import image_manipulation as im
@@ -36,5 +35,15 @@ def predict_number(small_square, model):
     prediction_data = cv2.resize(small_square, (target_dimension,target_dimension), interpolation=cv2.INTER_AREA)
     prediction_data = prediction_data.reshape(1, target_dimension, target_dimension, 1)
 
-    prediction = np.argmax(model.predict(prediction_data), axis=-1)
+    input_details = model.get_input_details()
+    output_details = model.get_output_details()
+
+    input_data = np.array(prediction_data, dtype=np.float32)
+    model.set_tensor(input_details[0]['index'], input_data)
+
+    model.invoke()
+
+    prediction = model.get_tensor(output_details[0]['index'])
+
+    prediction = np.argmax(prediction, axis=-1)
     return prediction

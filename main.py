@@ -5,16 +5,16 @@ import predict_CNN
 import image_manipulation as im
 import solve_puzzle as sp
 import sys
-from keras.models import load_model
+import tflite_runtime.interpreter as tflite
 
-def solve(name, filename, model, result):
+def solve(name, image):
     print("testname: {}".format(name))
-    image = cv2.imread(filename)
+    #image = cv2.imread(filename)
     major_grid = mg.extract_major_grid(image)
     squares_images, square_coordinates = ge.extract_grid_elements(major_grid, name)
 
     if squares_images is None:
-        result[name] = 'Could not extract Sudoku grid from image.'
+        #result[name] = 'Could not extract Sudoku grid from image.'
         print('===')
         return
 
@@ -49,36 +49,40 @@ def solve(name, filename, model, result):
         print(line)
 
     print('---')
-    result[name] = '{}-Sudoku succesful solved: {}'.format(name, imported_sudoku != grid_solved)
-    print(result[name])
+    #result[name] = '{}-Sudoku succesful solved: {}'.format(name, imported_sudoku != grid_solved)
+    #print(result[name])
     if imported_sudoku != grid_solved:
         output = im.output_sudoku_solution(major_grid, square_coordinates, imported_sudoku, grid_solved)
         cv2.imwrite('./output/'+name+'_output.png', output)
     print('===')
-    
 
-#knn = joblib.load('./models/Char74K_knn_model.pkl')
-model = load_model('./models/Char74K_CNN_model.h5')
+def init_tflite():
+    global model    
+    model = tflite.Interpreter(model_path='./models/Chars74K_CNN_model.tflite')
+    model.allocate_tensors()
 
-results = {}
+# init_tflite()
+# results = {}
 
-solve('test1', './test_files/test1.jpg', model, results)
-solve('test2', './test_files/test2.jpg', model, results)
-solve('test3', './test_files/test3.jpg', model, results)
-solve('test4', './test_files/test4.jpg', model, results)
-solve('test5', './test_files/test5.jpg', model, results)
-solve('test6', './test_files/test6.jpg', model, results)
-solve('test7', './test_files/test7.jpg', model, results)
-solve('test8', './test_files/test8.jpg', model, results)
-solve('test9', './test_files/test9.jpg', model, results)
-solve('test10', './test_files/test10.jpg', model, results)
-solve('test11', './test_files/test11.jpg', model, results)
-solve('test12', './test_files/test12.jpg', model, results)
-solve('test13', './test_files/test13.jpg', model, results)
-solve('test14', './test_files/test14.jpg', model, results)
-solve('test15', './test_files/test15.jpg', model, results)
-solve('test16', './test_files/test16.jpg', model, results)
-solve('test17', './test_files/test17.png', model, results)
+# solve('test1', './test_files/test1.jpg', model, results)
+# solve('test2', './test_files/test2.jpg', model, results)
+# solve('test3', './test_files/test3.jpg', model, results)
+# solve('test4', './test_files/test4.jpg', model, results)
+# solve('test5', './test_files/test5.jpg', model, results)
+# solve('test6', './test_files/test6.jpg', model, results)
+# solve('test7', './test_files/test7.jpg', model, results)
+# solve('test8', './test_files/test8.jpg', model, results)
+# solve('test9', './test_files/test9.jpg', model, results)
+# solve('test10', './test_files/test10.jpg', model, results)
+# solve('test11', './test_files/test11.jpg', model, results)
+# solve('test12', './test_files/test12.jpg', model, results)
+# solve('test13', './test_files/test13.jpg', model, results)
+# solve('test14', './test_files/test14.jpg', model, results)
+# solve('test15', './test_files/test15.jpg', model, results)
+# solve('test16', './test_files/test16.jpg', model, results)
+# solve('test17', './test_files/test17.png', model, results)
+# solve('test18', './test_files/test18.png', model, results)
+#solve('test19', './test_files/test19.jpg', model, results)
 
-for key, item in results.items():
-    print('{} -- {}'.format(key, item))
+# for key, item in results.items():
+#     print('{} -- {}'.format(key, item))
