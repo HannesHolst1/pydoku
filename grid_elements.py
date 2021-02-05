@@ -64,7 +64,10 @@ def get_squares_with_canny(image):
 
 def get_squares_with_xlines(img):
     # Defining a kernel length
-    kernel_length = np.array(img).shape[1]//60
+    kernel_length = np.array(img).shape[1]//30
+
+    if kernel_length == 0:
+        return False, None, None
 
     # A vertical kernel of (1 X kernel_length), which will detect all the vertical lines from the image.
     vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, kernel_length))
@@ -127,7 +130,10 @@ def extract_grid_elements(image, name='output'):
             print('xlines failed.')
 
     if not grid_identified:
-        print('another approach necessary, squares: {}'.format(len(squares)))
+        if squares is None:
+            print('another approach necessary, squares: 0')
+        else:
+            print('another approach necessary, squares: {}'.format(len(squares)))
         return None, None
 
     idy = 0

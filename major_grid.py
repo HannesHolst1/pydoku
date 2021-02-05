@@ -45,9 +45,9 @@ def extract_major_grid(image):
 
     img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    img = cv2.GaussianBlur(img, (5,5), 0)
+    #img = cv2.GaussianBlur(img, (5,5), 0)
 
-    (thresh, img) = cv2.threshold(img, 128, 255,cv2.THRESH_BINARY|cv2.THRESH_OTSU)
+    (thresh, img) = cv2.threshold(img, 100, 255,cv2.THRESH_BINARY)
 
     img = 255-img
  
