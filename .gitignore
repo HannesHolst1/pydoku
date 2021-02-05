@@ -8,3 +8,4 @@ test.py
 datasets/
 models/
 pydoku_env3.8/
+pydoku_ondevice/
