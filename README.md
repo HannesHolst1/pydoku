@@ -10,41 +10,48 @@ This repository includes the following:
 
 The number prediction is based on a CNN-model that was trained with the Chars74K-dataset: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/
 
-Download the dataset and extract into `./datasets/Char74K/`
+### ToDo
+- [x] switch to tflite-model
+- [ ] integrate web frontend or expose through API
+- [ ] finalize code structure
 
-Then, run `create_Char74K_CNN_model.py`
-(It took appr. 30 minutes to complete on my laptop.)
+### Instructions
 
-This will create a dump of the trained model: `./models/Char74K_CNN_model.h5`
+Clone repository and run `main.py`
 
-The CNN has the following benefits:
-- The file in which the model is saved is much smaller (the kNN model-file was 650MB, the CNN model-file is 42MB)
-- The prediction runs faster compared to kNN 
-
-Current test output ----------------------->>>>
+### Output
 
 ```
-test1 -- test1-Sudoku succesful solved: True
-test2 -- test2-Sudoku succesful solved: True
-test3 -- test3-Sudoku succesful solved: True
-test4 -- Could not extract Sudoku grid from image.
-test5 -- test5-Sudoku succesful solved: False
-test6 -- Could not extract Sudoku grid from image.
-test7 -- Could not extract Sudoku grid from image.
-test8 -- test8-Sudoku succesful solved: True
-test9 -- test9-Sudoku succesful solved: True
-test10 -- Could not extract Sudoku grid from image.
-test11 -- Could not extract Sudoku grid from image.
-test12 -- test12-Sudoku succesful solved: True
-test13 -- test13-Sudoku succesful solved: True
-test14 -- Could not extract Sudoku grid from image.
-test15 -- Could not extract Sudoku grid from image.
-test16 -- test16-Sudoku succesful solved: True
-test17 -- Could not extract Sudoku grid from image.
+testname: test1
+using Canny, squares: 81
+--- predicting numbers:  
+[====================] 100%
+--- scanned Sudoku:        
+[0, 0, 0, 2, 0, 0, 7, 5, 3]
+[6, 0, 0, 8, 0, 5, 0, 4, 0]
+[0, 0, 0, 1, 0, 0, 9, 0, 0]
+[8, 9, 7, 0, 0, 0, 0, 0, 5]
+[0, 5, 0, 9, 1, 3, 0, 8, 0]
+[1, 0, 0, 0, 0, 0, 6, 2, 9]
+[0, 0, 2, 0, 0, 9, 0, 0, 0]
+[0, 6, 0, 4, 0, 7, 0, 0, 2]
+[5, 7, 4, 0, 0, 1, 0, 0, 0]
+--- solved Sudoku:
+[4, 1, 8, 2, 9, 6, 7, 5, 3]
+[6, 3, 9, 8, 7, 5, 2, 4, 1]
+[7, 2, 5, 1, 3, 4, 9, 6, 8]
+[8, 9, 7, 6, 4, 2, 3, 1, 5]
+[2, 5, 6, 9, 1, 3, 4, 8, 7]
+[1, 4, 3, 7, 5, 8, 6, 2, 9]
+[3, 8, 2, 5, 6, 9, 1, 7, 4]
+[9, 6, 1, 4, 8, 7, 5, 3, 2]
+[5, 7, 4, 3, 2, 1, 8, 9, 6]
+---
+===
 ```
 
-## Original file
+### Original file
 ![original sudoku](https://raw.githubusercontent.com/HannesHolst1/pydoku/master/test_files/test1.jpg)
 
-## Output (solved Sudoku)
+### Output (solved Sudoku)
 ![solved sudoku](https://github.com/HannesHolst1/pydoku/blob/master/output/test1_output.png?raw=true)
