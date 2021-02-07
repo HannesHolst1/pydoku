@@ -31,7 +31,7 @@ The number prediction is based on a CNN-model that was trained with the Chars74K
 ## Output
 
 ### Original file
-![original sudoku](https://github.com/HannesHolst1/pydoku/blob/master/backend/test_files/test1.jpg?raw=true)
+![original sudoku](https://github.com/HannesHolst1/pydoku/blob/master/backend/test_files/test9.jpg?raw=true)
 
 ### Solved Sudoku
-![solved sudoku](https://github.com/HannesHolst1/pydoku/blob/master/backend/output/test1_output.png?raw=true)
+![solved sudoku](https://github.com/HannesHolst1/pydoku/blob/master/backend/output/test9_output.png?raw=true)
