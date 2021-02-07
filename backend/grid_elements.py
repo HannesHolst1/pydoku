@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import image_manipulation as im
+from backend import image_manipulation as im
 
 def get_contour_precedence(contour):
     origin = cv2.boundingRect(contour)
@@ -131,10 +131,7 @@ def extract_grid_elements(image, name='output'):
 
     if not grid_identified:
         if squares is None:
-            print('another approach necessary, squares: 0')
-        else:
-            print('another approach necessary, squares: {}'.format(len(squares)))
-        return None, None
+            return None, None
 
     idy = 0
     idx = 1

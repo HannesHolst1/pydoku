@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-import image_manipulation as im
+from backend import image_manipulation as im
 
 def is_empty_square(image):
     edges = cv2.Canny(image, 75, 100)
@@ -11,7 +11,7 @@ def is_empty_square(image):
             contour_area = w * h
             image_area = image.shape[0] * image.shape[1]
             ratio = contour_area * 100 / image_area 
-            if ratio >= 5 and ratio <= 25:
+            if ratio >= 5 and ratio <= 75:
                 return False
     return True
 

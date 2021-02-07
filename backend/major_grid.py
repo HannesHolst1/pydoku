@@ -2,7 +2,7 @@
 import numpy as np
 import imutils
 import cv2
-import image_manipulation as im
+from backend import image_manipulation as im
 
 def order_points(pts):
 	rect = np.zeros((4, 2), dtype = "float32")
@@ -66,7 +66,9 @@ def extract_major_grid(image):
         approx = cv2.approxPolyDP(c, 0.06 * peri, True)
 
         if len(approx) == 4:
-            #print(cv2.boundingRect(c))
+            dimensions = cv2.boundingRect(c)
             #cv2.drawContours(image, [approx], -1, (0,255,0), 3)
             cropped = four_point_transform(image, approx.reshape(4, 2))
-            return cropped
+            return cropped, dimensions
+
+    return None, None
