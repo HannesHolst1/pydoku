@@ -7,7 +7,7 @@ This repository includes the following:
 - Grid extraction
 - Number prediction using Convolutional Neural Network-model (with 99% accurancy) 
 - Recursive Sudoku-solver
-- Flask (based on the Pixel-Lite boilerplate: https://demo.themesberg.com/pixel-lite/)
+- Flask web frontend (based on the Pixel-Lite boilerplate: https://demo.themesberg.com/pixel-lite/)
 
 The number prediction is based on a CNN-model that was trained with the Chars74K-dataset: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/
 
@@ -18,6 +18,7 @@ The number prediction is based on a CNN-model that was trained with the Chars74K
 - [ ] integrate demo-files in frontend
 - [ ] make frontend vertical screen-friendly
 - [ ] finalize code structure
+- [ ] clean unused boilerplate files
 
 ### Instructions
 
