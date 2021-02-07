@@ -1,5 +1,5 @@
 # pydoku
-Solves a Sudoku in Python using OpenCV & Deep Learning
+Solves a Sudoku in Python using OpenCV & Deep Learning.
 
 This repository includes the following:
 - Image processing
@@ -14,6 +14,7 @@ The number prediction is based on a CNN-model that was trained with the Chars74K
 ### ToDo
 - [x] switch to tflite-model
 - [x] integrate web frontend
+- [ ] consider session-based image processing
 - [ ] integrate demo-files in frontend
 - [ ] make frontend vertical screen-friendly
 - [ ] finalize code structure
