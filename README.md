@@ -7,51 +7,30 @@ This repository includes the following:
 - Grid extraction
 - Number prediction using Convolutional Neural Network-model (with 99% accurancy) 
 - Recursive Sudoku-solver
+- Flask (based on the Pixel-Lite boilerplate: https://demo.themesberg.com/pixel-lite/)
 
 The number prediction is based on a CNN-model that was trained with the Chars74K-dataset: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/
 
 ### ToDo
 - [x] switch to tflite-model
-- [ ] integrate web frontend or expose through API
+- [x] integrate web frontend
+- [ ] integrate demo-files in frontend
+- [ ] make frontend vertical screen-friendly
 - [ ] finalize code structure
 
 ### Instructions
 
-Clone repository and run `main.py`
+- Download Python 3.8.x (TensorFlow requires Python 3.8.x)
+- Clone repository to a local directory
+- create a new virtual environment `py -3.8 -m venv name_of_your_virtualenv_here`
+- run `pip install -r requirements.txt`
+- execute `run.py`
+- open your webbrowser and open `http://127.0.0.1:5000`
 
-### Output
-
-```
-testname: test1
-using Canny, squares: 81
---- predicting numbers:  
-[====================] 100%
---- scanned Sudoku:        
-[0, 0, 0, 2, 0, 0, 7, 5, 3]
-[6, 0, 0, 8, 0, 5, 0, 4, 0]
-[0, 0, 0, 1, 0, 0, 9, 0, 0]
-[8, 9, 7, 0, 0, 0, 0, 0, 5]
-[0, 5, 0, 9, 1, 3, 0, 8, 0]
-[1, 0, 0, 0, 0, 0, 6, 2, 9]
-[0, 0, 2, 0, 0, 9, 0, 0, 0]
-[0, 6, 0, 4, 0, 7, 0, 0, 2]
-[5, 7, 4, 0, 0, 1, 0, 0, 0]
---- solved Sudoku:
-[4, 1, 8, 2, 9, 6, 7, 5, 3]
-[6, 3, 9, 8, 7, 5, 2, 4, 1]
-[7, 2, 5, 1, 3, 4, 9, 6, 8]
-[8, 9, 7, 6, 4, 2, 3, 1, 5]
-[2, 5, 6, 9, 1, 3, 4, 8, 7]
-[1, 4, 3, 7, 5, 8, 6, 2, 9]
-[3, 8, 2, 5, 6, 9, 1, 7, 4]
-[9, 6, 1, 4, 8, 7, 5, 3, 2]
-[5, 7, 4, 3, 2, 1, 8, 9, 6]
----
-===
-```
+## Output
 
 ### Original file
-![original sudoku](https://raw.githubusercontent.com/HannesHolst1/pydoku/master/test_files/test1.jpg)
+![original sudoku](https://github.com/HannesHolst1/pydoku/blob/master/backend/test_files/test1.jpg?raw=true)
 
-### Output (solved Sudoku)
-![solved sudoku](https://github.com/HannesHolst1/pydoku/blob/master/output/test1_output.png?raw=true)
+### Solved Sudoku
+![solved sudoku](https://github.com/HannesHolst1/pydoku/blob/master/backend/output/test1_output.png?raw=true)
