@@ -27,7 +27,7 @@ The number prediction is based on a CNN-model that was trained with the Chars74K
 - create a new virtual environment `py -3.8 -m venv name_of_your_virtualenv_here`
 - run `pip install -r requirements.txt`
 - execute `run.py`
-- open your webbrowser and open `http://127.0.0.1:5000`
+- open your webbrowser and go to `http://127.0.0.1:5000`
 
 ## Output
 
