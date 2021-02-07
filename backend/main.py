@@ -10,7 +10,17 @@ import io
 import copy
 
 class Sudoku:
+    '''
+    Sudoku-class which holds all attributes and functions that represent a Sudoku.
+    Usage:
+        Sudoku.set_problem(image)
+        Sudoku.solve()
+        Sudoku.get_output()
+    '''
     class Major_Grid:
+        '''
+        The Major_Grid-class is a representation of the outer border of the Sudoku which could be extracted from the image.
+        '''
         image = None
         dimensions = None
 
@@ -30,6 +40,9 @@ class Sudoku:
             pass
 
         def count(self):
+            '''
+            Counts all elements of self.images.
+            '''
             counter = 0
             for row in self.images:
                 counter += len(row)
@@ -42,6 +55,8 @@ class Sudoku:
         self.solved = False
         self.status = None
         self.shrink_ratio = 60
+        self.imported_sudoku = []
+        self.solved_sudoku = []
 
         self.major_grid = self.Major_Grid()
         self.squares = self.Squares()
@@ -77,10 +92,16 @@ class Sudoku:
             self.problem = in_memory_file
 
     def find_sudoku(self, image):
+        '''
+        Tries to find a Sudoku in a given image.
+        '''
         return mg.extract_major_grid(image)
 
-    def extract_squares_from_sudoku(self, image):
-        return ge.extract_grid_elements(image)
+    def extract_squares_from_sudoku(self, major_grid):
+        '''
+        Tries to extract squares from a Major Grid.
+        '''
+        return ge.extract_grid_elements(major_grid)
 
     def solve(self):
         self.major_grid.image, self.major_grid.dimensions = self.find_sudoku(self.problem)
@@ -102,6 +123,9 @@ class Sudoku:
                             (0,255,0), 5)
             return
 
+        ## In case the amount of extracted squares is less than the minium of squares that should have been extracted.
+        ## For a standard 9x9 Sudoku, that should be 81.
+        ## It can be less than the minium, when the image quality is not good enough. 
         if self.squares.count() < self.squares.minimum:
             self.status = 'Could not extract all squares from Sudoku.'
             self.solved = False
@@ -116,7 +140,6 @@ class Sudoku:
                                 (0,255,0), 3)
             return
 
-        imported_sudoku = []
         predicted_row = []
         for image_row in self.squares.images:
             for image_square in image_row:
@@ -124,15 +147,20 @@ class Sudoku:
                 prediction = predict.predict_number(prep_image, model)
                 predicted_row.append(int(prediction[0]))
 
-            imported_sudoku.append(predicted_row)
+            self.imported_sudoku.append(predicted_row)
             predicted_row = []
 
-        grid_solved = sp.solve(imported_sudoku)
+        print('try to solve now...')
+        for line in self.imported_sudoku:
+            print(line)
 
-        if imported_sudoku != grid_solved:
+        self.solved_sudoku = sp.solve(self.imported_sudoku)
+
+        self.output = im.output_sudoku_solution(copy.copy(self.major_grid.image), self.squares.coordinates, self.imported_sudoku, self.solved_sudoku)
+
+        if self.imported_sudoku != self.solved_sudoku:
             self.status = 'Sudoku solved.'
             self.solved = True
-            self.output = im.output_sudoku_solution(self.major_grid.image, self.squares.coordinates, imported_sudoku, grid_solved)
         else:
             self.status = 'It was not possible to solve the Sudoku. Probably it was not possible to predict all numbers.'
 
