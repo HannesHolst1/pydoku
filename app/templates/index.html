@@ -25,19 +25,40 @@
                                     <div class="row justify-content-center">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <form role="form" method="post" enctype="multipart/form-data">
+                                                <form role="form" action="/" method="post" enctype="multipart/form-data">
                                                     <div class="d-flex flex-row justify-content-center">
                                                         <div class="input-group">
                                                             <div class="custom-file">
                                                                 <input type="file" name="file" class="custom-file-input" id="file" onchange="javascript:this.form.submit();">
-                                                                <label class="custom-file-label" for="file">JPG or PNG, max. 5MB</label>
-                                                                <!-- <button type="submit" name="submit" class="btn mb-2 mr-2 btn-warning">Solve!</button> -->
+                                                                <label class="custom-file-label" for="file">JPG or PNG, max. 6MB</label>    
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
+                                    </div> 
+                                    <div class="row justify-content-between" id="output"> 
+                                        <div class="col-sm">
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">              
+                                        <div class="col-sm">
+                                            <a href="/demo/1" class="btn mb-2 mr-2 btn-outline-secondary" type="button">Demo #1</a>
+                                        </div>
+                                        <div class="col-sm">
+                                            <a href="/demo/2" class="btn mb-2 mr-2 btn-outline-secondary" type="button">Demo #2</a>
+                                        </div>
+                                        <div class="col-sm">
+                                            <a href="/demo/3" class="btn mb-2 mr-2 btn-outline-secondary" type="button">Demo #3</a>
+                                        </div>
+                                        <div class="col-sm">
+                                            <a href="/demo/4" class="btn mb-2 mr-2 btn-outline-secondary" type="button">Demo #4</a>
+                                        </div>
+                                        <div class="col-sm">
+                                            <a href="/demo/5" class="btn mb-2 mr-2 btn-outline-secondary" type="button">Demo #5</a>
+                                        </div>                                                                                
                                     </div>
                                 </div>
                             </div>
@@ -58,6 +79,26 @@
         <section class="section section-lg">
             <div class="container">
                 <div class="row align-items-center justify-content-around">
+                    {% if processed %}
+                        {% if solved_sudoku %}
+                            <div class="alert alert-success" role="alert">
+                                <span class="alert-inner--text">{{status}}</span>
+                            </div>
+                        {% elif solved_sudoku == False %}
+                            <div class="alert alert-warning" role="alert">
+                                <span class="alert-inner--text">{{status}}</span>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    {% if not processed %}
+                        {% if status %}
+                            <div class="alert alert-danger" role="alert">
+                                <span class="alert-inner--text">{{status}}</span>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="row align-items-center justify-content-around">
                     <div class="col-md-6 col-xl-6 my-5 mt-sm-0 d-none d-sm-block">
                         {% if processed == True %}
 	                        <div>
@@ -72,7 +113,6 @@
 	                        </div>
                         {% elif processed == True %}
                         <div>
-                            {{status}}
                             <img src="{{ url_for('display_output') }}">
                         </div>
                         {% endif %}
@@ -92,7 +132,7 @@
              </figure>
             <div class="container">
                 <div class="col-12 col-md-9 col-lg-8 text-center mx-auto">
-                    <h2 class="h1 mb-4">FAQ</h2>
+                    <h2 id="FAQ" class="h1 mb-4">FAQ</h2>
                 </div>
                 <div class="accordion" id="accordionExample1">
                     <div class="card card-sm card-body border-light mb-0">
@@ -121,7 +161,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card card-sm card-body border-light">
+                    <div class="card card-sm card-body border-light mb-0">
                         <a href="#panel-3" data-target="#panel-3" class="accordion-panel-header" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="panel-1">
                             <span class="h6 mb-0 font-weight-bold">What happens to the file I have uploaded?</span>
                             <span class="icon"><i class="fas fa-plus"></i></span>
@@ -129,7 +169,34 @@
                         <div class="collapse" id="panel-3">
                             <div class="pt-3">
                                 <p class="mb-0">
-                                    This service is designed to process the image file on the fly. It is not stored on the server.
+                                    This service is designed to process the image file on the fly. Files uploaded are not stored on the server.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-sm card-body border-light mb-0">
+                        <a href="#panel-4" data-target="#panel-4" class="accordion-panel-header" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="panel-1">
+                            <span class="h6 mb-0 font-weight-bold">I've tried to solve the Sudoku. What about the numbers I have written into the boxes?</span>
+                            <span class="icon"><i class="fas fa-plus"></i></span>
+                        </a>
+                        <div class="collapse" id="panel-4">
+                            <div class="pt-3">
+                                <p class="mb-0">
+                                    Hand written numbers are not recognized properly. The app can be extended by integrating a second AI-model which could recognize hand-written numbers.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-sm card-body border-light">
+                        <a href="#panel-5" data-target="#panel-5" class="accordion-panel-header" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="panel-1">
+                            <span class="h6 mb-0 font-weight-bold">Why does this exists at all?</span>
+                            <span class="icon"><i class="fas fa-plus"></i></span>
+                        </a>
+                        <div class="collapse" id="panel-5">
+                            <div class="pt-3">
+                                <p class="mb-0">
+                                    Actually, to find a solution for a Sudoku is the fun a Sudoku has to offer. Therefor, offering a service that eliminates the fun by offering an automatic solution doesn't make much sense.
+                                    But, this app is a pet project of mine that did teach me several technologies a long the way. So, the whole purpose of this app was to provide me obstacles I had to overcome.
                                 </p>
                             </div>
                         </div>
@@ -145,7 +212,7 @@
 
         <!-- Section -->
         <section class="section section-lg">
-            <div class="container">
+            <div class="container" id="Download">
                 <!-- <div class="row justify-content-center"> -->
                 <div class="row align-items-center justify-content-around">
                         <!-- Github button -->

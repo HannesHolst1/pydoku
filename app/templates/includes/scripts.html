@@ -17,3 +17,8 @@
 
     <!-- pixel JS -->
     <script src="/static/assets/js/pixel.js"></script>
+
+    <!-- Custom -->
+    {% if processed %}
+    <script> window.location.hash="output"; </script>
+    {% endif %}

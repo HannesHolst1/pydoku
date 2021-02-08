@@ -49,7 +49,7 @@ class Sudoku:
 
             return counter
 
-    def __reset(self):
+    def reset(self):
         self.problem = None
         self.output = None
         self.solved = False
@@ -62,7 +62,7 @@ class Sudoku:
         self.squares = self.Squares()
 
     def __init__(self) -> None:
-        self.__reset()
+        self.reset()
 
     def __convert_image_to_io(self, image):
         is_success, buffer = cv2.imencode(".jpg", image)
@@ -82,12 +82,14 @@ class Sudoku:
         resized = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
         return resized
 
-    def set_problem(self, in_memory_file):
-        self.__reset()
-        if type(in_memory_file) == io.BytesIO:
+    def set_problem(self, filename=None, in_memory_file=None):
+        self.reset()
+        if not in_memory_file is None:
             data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
             color_image_flag = 1
-            self.problem = cv2.imdecode(data, color_image_flag)   
+            self.problem = cv2.imdecode(data, color_image_flag)
+        elif not filename is None:
+            self.problem = cv2.imread(filename)
         else:
             self.problem = in_memory_file
 
