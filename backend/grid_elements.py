@@ -89,7 +89,7 @@ def get_squares_with_xlines(img):
     # This function helps to add two image with specific weight parameter to get a third image as summation of two image.
     img_final_bin = cv2.addWeighted(vertical_lines_img, alpha, horizontal_lines_img, beta, 0.0)
     img_final_bin = cv2.erode(~img_final_bin, kernel, iterations=2)
-    (thresh, img_final_bin) = cv2.threshold(img_final_bin, 128,255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    img_final_bin = cv2.threshold(img_final_bin, 128,255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
     contours, hierarchy  = im.findContours(img_final_bin)
 
@@ -102,7 +102,7 @@ def get_squares_with_xlines(img):
     for contour_index, c in enumerate(contours):
        x, y, w, h = cv2.boundingRect(c)     
        candidate = w * h
-       squares_that_fit = sudoku_area // candidate
+       squares_that_fit = sudoku_area // candidate   
        if (squares_that_fit >= 75) and (squares_that_fit <= 105):
            if len(small_squares) < 81:
                 small_squares.append(contour_index)
@@ -153,6 +153,10 @@ def extract_grid_elements(image, name='output'):
                 idx += 1
                 grid_columns = []
                 coordiantes_line = []
+
+    if len(grid_columns) > 0:
+        numbers.insert(idx, grid_columns)
+        coordinates.insert(idx, coordiantes_line)
 
     return numbers, coordinates
         

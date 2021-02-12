@@ -125,7 +125,7 @@ class Sudoku:
 
         ## below happens when it wasn't possible to extract the Sudoku-puzzle from the image
         if self.squares.images is None:
-            self.status = 'Could not extract complete Sudoku from image.'
+            self.status = 'Could not extract complete Sudoku from image. Please try with another image!'
             self.solved = False
             self.output = copy.copy(self.problem)
 
@@ -142,7 +142,7 @@ class Sudoku:
         ## For a standard 9x9 Sudoku, that should be 81.
         ## It can be less than the minium, when the image quality is not good enough. 
         if self.squares.count() < self.squares.minimum:
-            self.status = 'Could not extract all squares from Sudoku.'
+            self.status = 'Could not extract all squares from Sudoku. Please try with another image!'
             self.solved = False
             self.output = copy.copy(self.major_grid.image)
 
