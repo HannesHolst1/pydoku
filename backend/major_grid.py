@@ -40,17 +40,15 @@ def four_point_transform(image, pts):
 	
 	return warped
 
-def extract_major_grid(image):
-    #img = im.prepare_image(image)
-
+def find_grid_by_edges(image):
     img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     img = cv2.GaussianBlur(img, (5,5), 0)
 
-    (thresh, img) = cv2.threshold(img, 128, 255,cv2.THRESH_BINARY|cv2.THRESH_OTSU)
+    img = cv2.threshold(img, 128, 255,cv2.THRESH_BINARY|cv2.THRESH_OTSU)[1]
 
     img = 255-img
- 
+
     img_edged = im.identify_edges(img)
 
     cnts = im.findContours(img_edged)
@@ -65,10 +63,44 @@ def extract_major_grid(image):
         peri = cv2.arcLength(c, True)
         approx = cv2.approxPolyDP(c, 0.06 * peri, True)
 
-        if len(approx) == 4:
+        dimensions = cv2.boundingRect(c)
+
+        if (len(approx) == 4):
             dimensions = cv2.boundingRect(c)
-            #cv2.drawContours(image, [approx], -1, (0,255,0), 3)
             cropped = four_point_transform(image, approx.reshape(4, 2))
             return cropped, dimensions
 
     return None, None
+
+def find_grid_by_contentarea(image, minium_ratio=0.15):
+    img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    img = cv2.GaussianBlur(img, (5,5), 0)
+
+    img = cv2.threshold(img, 128, 255,cv2.THRESH_BINARY|cv2.THRESH_OTSU)[1]
+
+    img = 255-img
+
+    kernel = np.ones((5,5),np.uint8)
+    img = cv2.dilate(img, kernel, iterations=4)
+
+    cnts = im.findContours(img)
+
+    ## if possible replace below by internal algorithm
+    cnts = imutils.grab_contours(cnts)
+
+    # loop over our contours
+    image_area = image.shape[0] * image.shape[1]
+    for c in cnts:
+        # approximate the contour
+        peri = cv2.arcLength(c, True)
+        approx = cv2.approxPolyDP(c, 0.06 * peri, True)
+
+        dimensions = cv2.boundingRect(c)
+
+        current_Rect_area = dimensions[2] * dimensions[3]
+        if (current_Rect_area / image_area >= minium_ratio) and (len(approx) == 4):
+            cropped = four_point_transform(image, approx.reshape(4, 2))
+            return cropped, dimensions
+
+    return None, None	

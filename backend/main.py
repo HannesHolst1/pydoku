@@ -23,6 +23,8 @@ class Sudoku:
         '''
         image = None
         dimensions = None
+        area = None
+        minium_area = 0.15
 
         def __init__(self) -> None:
             pass
@@ -54,6 +56,7 @@ class Sudoku:
         self.output = None
         self.solved = False
         self.status = None
+        self.contentarea = None
         self.shrink_ratio = 60
         self.imported_sudoku = []
         self.solved_sudoku = []
@@ -65,7 +68,7 @@ class Sudoku:
         self.reset()
 
     def __convert_image_to_io(self, image):
-        is_success, buffer = cv2.imencode(".jpg", image)
+        buffer = cv2.imencode(".jpg", image)[1]
         img_io = io.BytesIO(buffer)
         img_io.seek(0)
         return img_io
@@ -93,11 +96,20 @@ class Sudoku:
         else:
             self.problem = in_memory_file
 
+        self.contentarea = self.problem.shape[0] * self.problem.shape[1]
+
     def find_sudoku(self, image):
         '''
         Tries to find a Sudoku in a given image.
         '''
-        return mg.extract_major_grid(image)
+        self.major_grid.image, self.major_grid.dimensions = mg.find_grid_by_edges(image)
+        self.major_grid.area = self.major_grid.image.shape[0] * self.major_grid.image.shape[1]
+
+        if self.major_grid.area / self.contentarea < self.major_grid.minium_area:
+            self.major_grid.image, self.major_grid.dimensions = mg.find_grid_by_contentarea(image, self.major_grid.minium_area)
+            self.major_grid.area = self.major_grid.image.shape[0] * self.major_grid.image.shape[1]
+
+        return self.major_grid.image, self.major_grid.dimensions
 
     def extract_squares_from_sudoku(self, major_grid):
         '''
@@ -118,11 +130,12 @@ class Sudoku:
             self.output = copy.copy(self.problem)
 
             ## draw area in output-image to show the area recognized
-            if len(self.major_grid.dimensions) == 4:
-                cv2.rectangle(self.output, 
-                            (self.major_grid.dimensions[0], self.major_grid.dimensions[1]), 
-                            (self.major_grid.dimensions[0]+self.major_grid.dimensions[2], self.major_grid.dimensions[1]+self.major_grid.dimensions[3]),
-                            (0,255,0), 5)
+            if not self.major_grid.dimensions is None:
+                if len(self.major_grid.dimensions) == 4:
+                    cv2.rectangle(self.output, 
+                                (self.major_grid.dimensions[0], self.major_grid.dimensions[1]), 
+                                (self.major_grid.dimensions[0]+self.major_grid.dimensions[2], self.major_grid.dimensions[1]+self.major_grid.dimensions[3]),
+                                (0,255,0), 5)
             return
 
         ## In case the amount of extracted squares is less than the minium of squares that should have been extracted.
