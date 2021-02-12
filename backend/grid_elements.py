@@ -64,7 +64,7 @@ def get_squares_with_canny(image):
 
 def get_squares_with_xlines(img):
     # Defining a kernel length
-    kernel_length = np.array(img).shape[1]//60
+    kernel_length = np.array(img).shape[1]//240
 
     if kernel_length == 0:
         return False, None, None

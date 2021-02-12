@@ -177,7 +177,7 @@ class Sudoku:
             self.status = 'Sudoku solved.'
             self.solved = True
         else:
-            self.status = 'It was not possible to solve the Sudoku. Probably it was not possible to predict all numbers.'
+            self.status = 'It was not possible to solve the Sudoku. It was not possible to predict all numbers.'
 
         print(self.status)
         
