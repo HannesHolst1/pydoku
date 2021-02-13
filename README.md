@@ -53,8 +53,4 @@ Actually, to find a solution for a Sudoku is the fun a Sudoku has to offer. Ther
 
 ## Output
 
-### Original file
-![original sudoku](https://github.com/HannesHolst1/pydoku/blob/master/backend/test_files/test1.jpg?raw=true)
-
-### Solved Sudoku
-![solved sudoku](https://github.com/HannesHolst1/pydoku/blob/master/backend/output/test9_output.png?raw=true)
+![webapp](https://github.com/HannesHolst1/pydoku/blob/master/app/static/assets/img/app.png?raw=true)
