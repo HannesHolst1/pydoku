@@ -35,6 +35,22 @@ The number prediction is based on a CNN-model that was trained with the Chars74K
 - execute `run.py`
 - open your webbrowser and go to `http://127.0.0.1:5000`
 
+## FAQ
+#### What are the minimum requirements?
+The Sudoku should be a 9x9 Sudoku. Other types of Sudokus are not supported at the moment. The photo should have at least 8MP. The photo should clearly show a Sudoku with all borders. 
+
+#### Why can my Sudoku not be solved?
+This can have several reasons. It could be that it wasn't possible to detect the Sudoku itself in the photo. This can happen due to bad image quality.
+
+#### What happens to the file I have uploaded?
+This service is designed to process the image file on the fly. Files uploaded are not stored on the server.
+
+#### I've tried to solve the Sudoku. What about the numbers I have written into the boxes?
+Hand written numbers are not recognized properly. The app can be extended by integrating a second AI-model which could recognize hand-written numbers. 
+
+#### Why does this exists at all?
+Actually, to find a solution for a Sudoku is the fun a Sudoku has to offer. Therefor, offering a service that eliminates the fun by offering an automatic solution doesn't make much sense. But, this app is a pet project of mine that did teach me several technologies a long the way. So, the whole purpose of this app was to provide me obstacles I had to overcome. 
+
 ## Output
 
 ### Original file
