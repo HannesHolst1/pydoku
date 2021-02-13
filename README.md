@@ -15,9 +15,7 @@ The number prediction is based on a CNN-model that was trained with the Chars74K
 - [x] switch to tflite-model
 - [x] integrate web frontend
 - [x] recognize major grid based on area ratio of whole picture (e.g. when area of contour is at least 60% of whole picture and has at least 4 edges it is most likely the major grid) 
-- [ ] consider session-based image processing
 - [x] integrate demo-files in frontend
-- [ ] make frontend vertical screen-friendly
 - [ ] finalize code structure
 - [ ] clean unused boilerplate files
 
