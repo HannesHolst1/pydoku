@@ -18,7 +18,7 @@ The number prediction is based on a CNN-model that was trained with the Chars74K
 - [x] consider session-based image processing
 - [x] integrate demo-files in frontend
 - [ ] finalize code structure
-- [ ] clean unused boilerplate files
+- [x] clean unused boilerplate files
 
 ### Instructions
 
