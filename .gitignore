@@ -8,4 +8,4 @@ test.py
 datasets/
 pydoku_env3.8/
 pydoku_ondevice/
-web_old/
+flask_session/
