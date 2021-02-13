@@ -57,7 +57,7 @@ class Sudoku:
         self.solved = False
         self.status = None
         self.contentarea = None
-        self.shrink_ratio = 60
+        self.shrink_to_ratio = 35
         self.imported_sudoku = []
         self.solved_sudoku = []
 
@@ -74,10 +74,10 @@ class Sudoku:
         return img_io
 
     def __shrink(self, image):
-        if self.shrink_ratio == 0:
-            scale_percent = 60
+        if self.shrink_to_ratio == 0:
+            scale_percent = 50
         else:
-            scale_percent = self.shrink_ratio
+            scale_percent = self.shrink_to_ratio
 
         width = int(image.shape[1] * scale_percent / 100)
         height = int(image.shape[0] * scale_percent / 100)
