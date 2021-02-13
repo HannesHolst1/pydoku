@@ -17,8 +17,14 @@ The number prediction is based on a CNN-model that was trained with the Chars74K
 - [x] recognize major grid based on area ratio of whole picture (e.g. when area of contour is at least 60% of whole picture and has at least 4 edges it is most likely the major grid)
 - [x] consider session-based image processing
 - [x] integrate demo-files in frontend
-- [ ] finalize code structure
+- [x] finalize code structure
 - [x] clean unused boilerplate files
+
+### If endless time would be available
+- [ ] re-train CNN with more data
+- [ ] test with more different Sudoku-puzzles
+- [ ] consider handwritten numbers
+- [ ] detect other puzzle sizes than 9x9 
 
 ### Instructions
 

@@ -60,9 +60,16 @@ class Sudoku:
         self.shrink_to_ratio = 35
         self.imported_sudoku = []
         self.solved_sudoku = []
+        self.model = None
 
         self.major_grid = self.Major_Grid()
         self.squares = self.Squares()
+
+        self.init_tflite()
+
+    def init_tflite(self):
+        self.model = tflite.Interpreter(model_path='./backend/models/Chars74K_CNN_model.tflite')
+        self.model.allocate_tensors()
 
     def __init__(self) -> None:
         self.reset()
@@ -159,15 +166,11 @@ class Sudoku:
         for image_row in self.squares.images:
             for image_square in image_row:
                 prep_image = im.prepare_image(image_square)
-                prediction = predict.predict_number(prep_image, model)
+                prediction = predict.predict_number(prep_image, self.model)
                 predicted_row.append(int(prediction[0]))
 
             self.imported_sudoku.append(predicted_row)
             predicted_row = []
-
-        print('try to solve now...')
-        for line in self.imported_sudoku:
-            print(line)
 
         self.solved_sudoku = sp.solve(self.imported_sudoku)
 
@@ -178,8 +181,6 @@ class Sudoku:
             self.solved = True
         else:
             self.status = 'It was not possible to solve the Sudoku. It was not possible to predict all numbers.'
-
-        print(self.status)
         
     def get_problem(self):
         image = self.__shrink(self.problem)
@@ -188,10 +189,3 @@ class Sudoku:
     def get_output(self):
         image = self.__shrink(self.output)
         return self.__convert_image_to_io(image)
-
-def init_tflite():
-    global model    
-    model = tflite.Interpreter(model_path='./backend/models/Chars74K_CNN_model.tflite')
-    model.allocate_tensors()
-
-init_tflite()

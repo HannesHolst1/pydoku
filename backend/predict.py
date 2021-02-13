@@ -17,11 +17,14 @@ def is_empty_square(image):
 
 def predict_number(small_square, model):
 
+    # this is necessary because an empty square can produce false predictions
     if is_empty_square(small_square):
         return [0]
 
-    target_dimension = 128
+    target_dimension = 128 # the model was trained with 128x128 images
 
+    # if the input-image is bigger than 128x128,
+    # then extract area of interest from the center of the image. 
     if (small_square.shape[0] >= target_dimension) or (small_square.shape[1] >= target_dimension):
         original_dimension = small_square.shape[0]
         buffer = original_dimension - target_dimension
@@ -32,6 +35,7 @@ def predict_number(small_square, model):
 
         small_square = small_square[int(center_x - (target_dimension+buffer)//2):int(center_x + (target_dimension+buffer)//2), int(center_y - (target_dimension+buffer)//2):int(center_y + (target_dimension+buffer)//2)]
 
+    # resize image to 128x128
     prediction_data = cv2.resize(small_square, (target_dimension,target_dimension), interpolation=cv2.INTER_AREA)
     prediction_data = prediction_data.reshape(1, target_dimension, target_dimension, 1)
 

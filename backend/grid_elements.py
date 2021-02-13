@@ -111,23 +111,16 @@ def get_squares_with_xlines(img):
 
     return sudoku_recognized, small_squares, contours
 
-def extract_grid_elements(image, name='output'):
+def extract_grid_elements(image):
 
     img = im.prepare_image(image)
 
+    # try with Canny
     grid_identified, squares, contours = get_squares_with_canny(img)
 
-    if grid_identified:
-        print('using Canny, squares: {}'.format(len(squares)))
-    else:
-        print('Canny failed.')
-
+    # try with 'manual' approach
     if not grid_identified:
         grid_identified, squares, contours = get_squares_with_xlines(img)
-        if grid_identified:
-            print('using xlines, squares: {}'.format(len(squares)))
-        else:
-            print('xlines failed.')
 
     if not grid_identified:
         if squares is None:
