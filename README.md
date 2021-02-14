@@ -27,13 +27,20 @@ The number prediction is based on a CNN-model that was trained with the Chars74K
 - [ ] detect other puzzle sizes than 9x9 
 
 ### Instructions
-
+#### Run as local webserver
 - Download Python 3.8.x (TensorFlow requires Python 3.8.x)
 - Clone repository to a local directory
 - create a new virtual environment `py -3.8 -m venv name_of_your_virtualenv_here`
 - run `pip install -r requirements.txt`
-- execute `run.py`
+- in `run.py` enable `app.run(debug=True)` and execute
 - open your webbrowser and go to `http://127.0.0.1:5000`
+
+#### Create Docker image
+- Open CLI (Command Line Interface)
+- Change into directory of repository
+- run `docker build --tag pydoku_app .`
+- run `docker run --detach -p 80:80 pydoku_app`
+- open your webbrowser and go to `localhost`
 
 ## FAQ
 #### What are the minimum requirements?
