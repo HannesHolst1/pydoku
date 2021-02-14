@@ -1,0 +1,11 @@
+launch.json
+settings.json
+.vscode/
+__pycache__/
+test.py
+pydoku_env3.8/
+flask_session/
+backend/debug/
+backend/build/
+backend/output/
+backend/__pycache__/
