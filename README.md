@@ -1,5 +1,7 @@
 # pydoku
-Solves a Sudoku in Python using OpenCV & Deep Learning.
+Solves a Sudoku in Python using OpenCV & Deep Learning. 
+
+---> Live Demo: https://pydoku.azurewebsites.net/
 
 This repository includes the following:
 - Image processing
