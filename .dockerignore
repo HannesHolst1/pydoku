@@ -9,3 +9,4 @@ backend/debug/
 backend/build/
 backend/output/
 backend/__pycache__/
+backend/test_files/

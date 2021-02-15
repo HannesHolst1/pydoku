@@ -23,7 +23,7 @@ class Sudoku:
         '''
         image = None
         dimensions = None
-        area = None
+        area = 0
         minium_area = 0.15
 
         def __init__(self) -> None:
@@ -110,11 +110,13 @@ class Sudoku:
         Tries to find a Sudoku in a given image.
         '''
         self.major_grid.image, self.major_grid.dimensions = mg.find_grid_by_edges(image)
-        self.major_grid.area = self.major_grid.image.shape[0] * self.major_grid.image.shape[1]
+        if not self.major_grid.image is None:
+            self.major_grid.area = self.major_grid.image.shape[0] * self.major_grid.image.shape[1]
 
         if self.major_grid.area / self.contentarea < self.major_grid.minium_area:
             self.major_grid.image, self.major_grid.dimensions = mg.find_grid_by_contentarea(image, self.major_grid.minium_area)
-            self.major_grid.area = self.major_grid.image.shape[0] * self.major_grid.image.shape[1]
+            if not self.major_grid.image is None:
+                self.major_grid.area = self.major_grid.image.shape[0] * self.major_grid.image.shape[1]
 
         return self.major_grid.image, self.major_grid.dimensions
 
